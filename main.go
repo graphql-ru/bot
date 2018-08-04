@@ -20,5 +20,5 @@ func main() {
 		panic("Telegram client failed")
 	}
 
-	client.Hello()
+	client.Start()
 }
