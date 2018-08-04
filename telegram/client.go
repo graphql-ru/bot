@@ -3,12 +3,12 @@ package telegram
 import (
 	"log"
 
-	tg "gopkg.in/telegram-bot-api.v4"
+	"gopkg.in/telegram-bot-api.v4"
 )
 
 // Client wrapper for telegram api
 type Client struct {
-	Bot *tg.BotAPI
+	Bot *tgbotapi.BotAPI
 }
 
 // Hello just stays hello
