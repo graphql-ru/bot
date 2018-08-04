@@ -18,7 +18,7 @@ func main() {
 	client, err := telegram.New()
 
 	if err != nil {
-		panic("Telegram client failed")
+		log.Fatal("Telegram client failed")
 	}
 
 	client.Use(handlers.Logger)
