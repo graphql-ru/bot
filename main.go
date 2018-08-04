@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	"github.com/graphql-ru/bot/handlers"
 	"github.com/graphql-ru/bot/telegram"
 	"github.com/joho/godotenv"
 )
@@ -20,5 +21,6 @@ func main() {
 		panic("Telegram client failed")
 	}
 
+	client.Use(handlers.Logger)
 	client.Start()
 }

@@ -22,9 +22,5 @@ func New() (*Client, error) {
 
 	log.Printf("Authorized on account @%s", bot.Self.UserName)
 
-	client := &Client{Bot: bot}
-
-	client.Use(LogHandler)
-
-	return client, nil
+	return &Client{Bot: bot}, nil
 }
