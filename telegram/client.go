@@ -17,7 +17,7 @@ type Client struct {
 
 // Start client
 func (c *Client) Start() error {
-	ucfg := tgbotapi.NewUpdate(0)
+	ucfg := tgbotapi.NewUpdate(1)
 	ucfg.Timeout = 60
 
 	updates, err := c.Bot.GetUpdatesChan(ucfg)

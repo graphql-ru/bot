@@ -6,6 +6,10 @@ import (
 
 // Commands handle special bot commands
 func Commands(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
+	if !update.Message.IsCommand() {
+		return
+	}
+
 	var msg tgbotapi.MessageConfig
 
 	switch update.Message.Command() {
