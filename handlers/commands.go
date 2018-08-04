@@ -5,8 +5,9 @@ import (
 )
 
 // Commands handle special bot commands
-func Commands(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
+func Commands(bot *tgbotapi.BotAPI, update tgbotapi.Update, next func()) {
 	if !update.Message.IsCommand() {
+		next()
 		return
 	}
 
@@ -24,4 +25,5 @@ func Commands(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	}
 
 	bot.Send(msg)
+	next()
 }

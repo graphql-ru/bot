@@ -7,7 +7,7 @@ import (
 )
 
 // UpdateHandler handle bot updateds
-type UpdateHandler func(bot *tgbotapi.BotAPI, update tgbotapi.Update)
+type UpdateHandler func(bot *tgbotapi.BotAPI, update tgbotapi.Update, next func())
 
 // Client wrapper for telegram api
 type Client struct {
@@ -19,6 +19,11 @@ type Client struct {
 func (c *Client) Start() error {
 	ucfg := tgbotapi.NewUpdate(1)
 	ucfg.Timeout = 60
+
+	goNext := false
+	next := func() {
+		goNext = true
+	}
 
 	updates, err := c.Bot.GetUpdatesChan(ucfg)
 
@@ -33,7 +38,13 @@ func (c *Client) Start() error {
 		}
 
 		for _, handler := range c.handlers {
-			handler(c.Bot, update)
+			goNext = false
+
+			handler(c.Bot, update, next)
+
+			if !goNext {
+				break
+			}
 		}
 	}
 
