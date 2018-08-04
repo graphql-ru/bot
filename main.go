@@ -17,7 +17,7 @@ func main() {
 	client, err := telegram.New()
 
 	if err != nil {
-		log.Fatal("Unable to init telegram client")
+		panic("Telegram client failed")
 	}
 
 	client.Hello()
