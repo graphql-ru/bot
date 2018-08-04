@@ -6,12 +6,13 @@ import (
 	"gopkg.in/telegram-bot-api.v4"
 )
 
-// UpdateCallback handle bot updateds
-type UpdateCallback func()
+// UpdateHandler handle bot updateds
+type UpdateHandler func(bot *tgbotapi.BotAPI, update tgbotapi.Update)
 
 // Client wrapper for telegram api
 type Client struct {
-	Bot *tgbotapi.BotAPI
+	Bot      *tgbotapi.BotAPI
+	handlers []UpdateHandler
 }
 
 // Start client
@@ -31,17 +32,15 @@ func (c *Client) Start() error {
 			continue
 		}
 
-		log.Printf("@%s %s", update.Message.From.UserName, update.Message.Text)
-
-		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Pong")
-
-		c.Bot.Send(msg)
+		for _, handler := range c.handlers {
+			handler(c.Bot, update)
+		}
 	}
 
 	return nil
 }
 
-// onMessage asdasd
-func (c *Client) onMessage() {
-	log.Println("Hello GraphQl")
+// Use calls registerd handlers on any update
+func (c *Client) Use(handler UpdateHandler) {
+	c.handlers = append(c.handlers, handler)
 }
