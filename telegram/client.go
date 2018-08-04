@@ -40,7 +40,7 @@ func (c *Client) Start() error {
 	return nil
 }
 
-// Use calls registerd handlers on any update
+// Use adds handler to handlers array
 func (c *Client) Use(handler UpdateHandler) {
 	c.handlers = append(c.handlers, handler)
 }
