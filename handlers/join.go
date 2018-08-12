@@ -20,7 +20,10 @@ func Join(bot *tgbotapi.BotAPI, update tgbotapi.Update, next func()) {
 
 	for _, member := range members {
 		if telegram.IsChinaBot(&member) {
-			log.Printf("[BUNNED] %s", member.UserName)
+			log.Printf("[KICK] @%s", member.UserName)
+
+			telegram.DeleteMessage(bot, update.Message)
+			telegram.KickMember(bot, update.Message.Chat.ID, member.ID)
 		}
 	}
 
