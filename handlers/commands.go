@@ -15,7 +15,7 @@ func Commands(bot *tgbotapi.BotAPI, update tgbotapi.Update, next func()) {
 
 	switch update.Message.Command() {
 	case "ping":
-		msg = tgbotapi.NewMessage(update.Message.Chat.ID, "понг")
+		msg = tgbotapi.NewMessage(update.Message.Chat.ID, "pong")
 		msg.ReplyToMessageID = update.Message.MessageID
 	default:
 		msg = tgbotapi.NewMessage(update.Message.Chat.ID, "[Make graphql_bot better](https://github.com/graphql-ru/bot)")
