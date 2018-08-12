@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"log"
+
 	"gopkg.in/telegram-bot-api.v4"
 )
 
@@ -10,6 +12,8 @@ func Commands(bot *tgbotapi.BotAPI, update tgbotapi.Update, next func()) {
 		next()
 		return
 	}
+
+	log.Printf("[COMMAND] @%s %s", update.Message.From.UserName, update.Message.Text)
 
 	var msg tgbotapi.MessageConfig
 
