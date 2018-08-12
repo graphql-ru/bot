@@ -21,7 +21,7 @@ func Join(bot *tgbotapi.BotAPI, update tgbotapi.Update, next func()) {
 	members = *update.Message.NewChatMembers
 
 	for _, member := range members {
-		if telegram.IsChinaBot(&member) {
+		if telegram.IsChineseBot(&member) {
 			log.Printf("[CHINA BOT] @%s", member.UserName)
 
 			telegram.DeleteMessage(bot, update.Message)
