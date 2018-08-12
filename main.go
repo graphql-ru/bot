@@ -19,6 +19,7 @@ func main() {
 
 	client.Use(handlers.Logger)
 	client.Use(handlers.Commands)
+	client.Use(handlers.Join)
 
 	client.Start()
 }
