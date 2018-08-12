@@ -6,7 +6,7 @@ import (
 	"gopkg.in/telegram-bot-api.v4"
 )
 
-// IsChinaBot check user name same like china bot
+// IsChinaBot check user name looks like china bot
 func IsChinaBot(user *tgbotapi.User) bool {
 	re := regexp.MustCompile("VX,QQ")
 	name := user.FirstName
