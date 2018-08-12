@@ -9,10 +9,18 @@ import (
 
 // New prepare initial configuration for telegram api
 func New() (*Client, error) {
-	bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_API_TOKEN"))
+	token := os.Getenv("TELEGRAM_API_TOKEN")
+
+	if token == "" {
+		log.Fatal("TELEGRAM_API_TOKEN env not provided")
+	}
+
+	bot, err := tgbotapi.NewBotAPI(token)
 
 	if err != nil {
 		log.Printf("Unable to authorize telegram client")
+		log.Printf("%+v", err)
+
 		return nil, err
 	}
 
