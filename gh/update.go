@@ -22,8 +22,8 @@ var repos = []string{
 	"apollographql/react-apollo",
 }
 
-// Ensure checks for new releases
-func (r *Releases) Ensure() {
+// Update checks for new releases
+func (r *Releases) Update() {
 	wg := sync.WaitGroup{}
 
 	routine := func(repo string) {
