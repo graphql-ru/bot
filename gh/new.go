@@ -20,7 +20,7 @@ func New() Releases {
 	githubToken := os.Getenv("GITHUB_API_TOKEN")
 
 	if githubToken == "" {
-		log.Printf("[ERROR] GITHUB_API_TOKEN not provided")
+		log.Printf("[OOPS] GITHUB_API_TOKEN not provided")
 	}
 
 	return Releases{
