@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/graphql-ru/bot/telegram"
@@ -25,10 +26,11 @@ func Join(bot *tgbotapi.BotAPI, update tgbotapi.Update, next func()) {
 
 	for _, member := range members {
 		if telegram.IsChineseBot(&member) {
-			log.Printf("[KICK] [ChatID: %d] @%s", ChatID, member.UserName)
+			log.Printf("[KICK] [ChatID: %d] @%s", ChatID, UserName)
 
 			telegram.DeleteMessage(bot, update.Message)
 			telegram.KickMember(bot, update.Message.Chat.ID, member.ID)
+			telegram.SendToAdmins(bot, fmt.Sprintf("Я кикнул @%s", UserName))
 		}
 	}
 
