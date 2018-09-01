@@ -13,12 +13,14 @@ func Commands(bot *tgbotapi.BotAPI, update tgbotapi.Update, next func()) {
 		return
 	}
 
-	log.Printf("[COMMAND] @%s %s", update.Message.From.UserName, update.Message.Text)
-
 	var msg tgbotapi.MessageConfig
 
 	ChatID := update.Message.Chat.ID
 	MessageID := update.Message.MessageID
+	UserName := update.Message.From.UserName
+	Text := update.Message.Text
+
+	log.Printf("[COMMAND] [ChatID: %d] @%s %s", ChatID, UserName, Text)
 
 	switch update.Message.Command() {
 	case "ping":

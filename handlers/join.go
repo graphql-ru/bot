@@ -16,13 +16,16 @@ func Join(bot *tgbotapi.BotAPI, update tgbotapi.Update, next func()) {
 		return
 	}
 
-	log.Printf("[JOIN] @%s", update.Message.From.UserName)
+	ChatID := update.Message.Chat.ID
+	UserName := update.Message.From.UserName
+
+	log.Printf("[JOIN] [ChatID: %d] @%s", ChatID, UserName)
 
 	members = *update.Message.NewChatMembers
 
 	for _, member := range members {
 		if telegram.IsChineseBot(&member) {
-			log.Printf("[CHINESE BOT] @%s", member.UserName)
+			log.Printf("[KICK] [ChatID: %d] @%s", ChatID, member.UserName)
 
 			telegram.DeleteMessage(bot, update.Message)
 			telegram.KickMember(bot, update.Message.Chat.ID, member.ID)
