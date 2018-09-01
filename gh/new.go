@@ -9,9 +9,9 @@ import (
 
 // Releases provides basic features
 type Releases struct {
-	httpClient  http.Client
-	githubToken string
-	versions    map[string]string
+	HTTPClient  http.Client
+	GithubToken string
+	Versions    map[string]string
 }
 
 // New creates instance of Releases
@@ -23,9 +23,13 @@ func New() Releases {
 		log.Printf("[OOPS] GITHUB_API_TOKEN not provided")
 	}
 
-	return Releases{
-		httpClient:  httpClient,
-		githubToken: githubToken,
-		versions:    map[string]string{},
+	releases := Releases{
+		HTTPClient:  httpClient,
+		GithubToken: githubToken,
+		Versions:    map[string]string{},
 	}
+
+	releases.Read()
+
+	return releases
 }

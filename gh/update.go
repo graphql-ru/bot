@@ -1,7 +1,6 @@
 package gh
 
 import (
-	"fmt"
 	"sync"
 )
 
@@ -21,7 +20,7 @@ func (r *Releases) Update() {
 
 	routine := func(repo string) {
 		defer wg.Done()
-		fmt.Println(r.VersionOf(repo))
+		r.Versions[repo] = r.VersionOf(repo)
 	}
 
 	for _, repo := range repos {
