@@ -11,6 +11,7 @@ import (
 type Releases struct {
 	httpClient  http.Client
 	githubToken string
+	versions    map[string]string
 }
 
 // New creates instance of Releases
@@ -23,7 +24,8 @@ func New() Releases {
 	}
 
 	return Releases{
-		httpClient,
-		githubToken,
+		httpClient:  httpClient,
+		githubToken: githubToken,
+		versions:    map[string]string{},
 	}
 }

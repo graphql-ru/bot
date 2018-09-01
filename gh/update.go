@@ -5,9 +5,6 @@ import (
 	"sync"
 )
 
-// Current versions for repos
-var versions = map[string]string{}
-
 // List of github repos for release remind
 var repos = []string{
 	"graphql/graphiql",
