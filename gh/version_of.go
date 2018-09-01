@@ -12,7 +12,7 @@ func (r *Releases) VersionOf(repo string) string {
 	url := fmt.Sprintf("https://api.github.com/repos/%s/releases/latest", repo)
 	result := map[string]interface{}{}
 
-	resp, err := r.Get(url)
+	resp, err := r.Fetch(url)
 
 	if err != nil {
 		log.Printf("[ERROR] %s", err.Error())
