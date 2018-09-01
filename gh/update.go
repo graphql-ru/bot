@@ -1,11 +1,7 @@
 package gh
 
 import (
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"log"
-	"net/http"
 	"sync"
 )
 
@@ -37,42 +33,4 @@ func (r *Releases) Update() {
 	}
 
 	wg.Wait()
-}
-
-// Get just wrapper for http.Get
-func (r *Releases) Get(url string) (*http.Response, error) {
-	req, _ := http.NewRequest("GET", url, nil)
-	req.Header.Set("Authorization", fmt.Sprintf("token %s", r.githubToken))
-
-	resp, err := r.httpClient.Do(req)
-
-	return resp, err
-}
-
-// VersionOf fetch and returns version of given repo
-func (r *Releases) VersionOf(repo string) string {
-	url := fmt.Sprintf("https://api.github.com/repos/%s/releases/latest", repo)
-	result := map[string]interface{}{}
-
-	resp, err := r.Get(url)
-
-	if err != nil {
-		log.Printf("[ERROR] %s", err.Error())
-		return ""
-	}
-
-	body, err := ioutil.ReadAll(resp.Body)
-
-	if err != nil {
-		log.Printf("[ERROR] %s", err.Error())
-		return ""
-	}
-
-	json.Unmarshal(body, &result)
-
-	if result["tag_name"] == nil {
-		return ""
-	}
-
-	return result["tag_name"].(string)
 }
