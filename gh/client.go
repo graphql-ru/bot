@@ -21,15 +21,15 @@ var repos = []string{
 	"apollographql/react-apollo",
 }
 
-// Releases provides basic features
-type Releases struct {
+// Client provides basic features
+type Client struct {
 	HTTPClient  http.Client
 	GithubToken string
 	Versions    map[string]string
 }
 
 // New creates instance of Releases
-func New() Releases {
+func New() Client {
 	httpClient := http.Client{Timeout: time.Second * 10}
 	githubToken := os.Getenv("GITHUB_API_TOKEN")
 
@@ -37,7 +37,7 @@ func New() Releases {
 		log.Printf("[OOPS] GITHUB_API_TOKEN not provided")
 	}
 
-	releases := Releases{
+	releases := Client{
 		HTTPClient:  httpClient,
 		GithubToken: githubToken,
 		Versions:    map[string]string{},
@@ -48,8 +48,8 @@ func New() Releases {
 	return releases
 }
 
-// Update checks for new releases
-func (r *Releases) Update() {
+// Remind checks for new releases
+func (r *Client) Remind() {
 	wg := sync.WaitGroup{}
 
 	routine := func(repo string) {
@@ -66,7 +66,7 @@ func (r *Releases) Update() {
 }
 
 // Fetch just wrapper for http.Get
-func (r *Releases) Fetch(url string) (*http.Response, error) {
+func (r *Client) Fetch(url string) (*http.Response, error) {
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("Authorization", fmt.Sprintf("token %s", r.GithubToken))
 
@@ -76,7 +76,7 @@ func (r *Releases) Fetch(url string) (*http.Response, error) {
 }
 
 // VersionOf fetch and returns version of given repo
-func (r *Releases) VersionOf(repo string) string {
+func (r *Client) VersionOf(repo string) string {
 	url := fmt.Sprintf("https://api.github.com/repos/%s/releases/latest", repo)
 	result := map[string]interface{}{}
 
@@ -104,7 +104,7 @@ func (r *Releases) VersionOf(repo string) string {
 }
 
 // Read from versions.json
-func (r *Releases) Read() {
+func (r *Client) Read() {
 	file, err := ioutil.ReadFile("/tmp/versions.json")
 
 	if err != nil {
@@ -121,7 +121,7 @@ func (r *Releases) Read() {
 }
 
 // Write versions into versions.json
-func (r *Releases) Write() {
+func (r *Client) Write() {
 	versions, err := json.Marshal(r.Versions)
 
 	if err != nil {
