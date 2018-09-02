@@ -36,6 +36,13 @@ var reposToRemind = []string{
 	// Other
 	"Akryum/vue-apollo",
 	"graphile/postgraphile",
+
+	// Python
+	"graphql-python/graphene",
+	"graphql-python/graphene-django",
+
+	// Ruby
+	"rmosolgo/graphql-ruby",
 }
 
 // Client provides basic features
