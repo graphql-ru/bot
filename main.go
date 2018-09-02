@@ -11,15 +11,15 @@ import (
 func main() {
 	godotenv.Load()
 
-	client, err := telegram.New()
+	tg, err := telegram.New()
 
 	if err != nil {
 		log.Fatal("Telegram client failed")
 	}
 
-	client.Use(handlers.Guard)
-	client.Use(handlers.Commands)
-	client.Use(handlers.Join)
+	tg.Use(handlers.Guard)
+	tg.Use(handlers.Commands)
+	tg.Use(handlers.Join)
 
-	client.Start()
+	tg.Start()
 }
