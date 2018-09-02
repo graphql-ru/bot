@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-// List of github reposToRemind for release remind
+// List of github repos for release remind
 var reposToRemind = []string{
 	"graphql/graphiql",
 	"graphql/graphql-js",
