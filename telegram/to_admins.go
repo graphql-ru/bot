@@ -9,8 +9,8 @@ var admins = []int64{
 	33020029, // @sudoguy
 }
 
-// SendToAdmins sends message to all admins
-func SendToAdmins(bot *tgbotapi.BotAPI, message string) {
+// ToAdmins sends message to all admins
+func ToAdmins(bot *tgbotapi.BotAPI, message string) {
 	for _, chatID := range admins {
 		msg := tgbotapi.NewMessage(chatID, message)
 		bot.Send(msg)

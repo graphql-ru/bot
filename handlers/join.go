@@ -30,7 +30,7 @@ func Join(bot *tgbotapi.BotAPI, update tgbotapi.Update, next func()) {
 
 			telegram.DeleteMessage(bot, update.Message)
 			telegram.KickMember(bot, update.Message.Chat.ID, member.ID)
-			telegram.SendToAdmins(bot, fmt.Sprintf("Я кикнул @%s", UserName))
+			telegram.ToAdmins(bot, fmt.Sprintf("Я кикнул @%s", UserName))
 		}
 	}
 

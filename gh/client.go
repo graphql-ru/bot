@@ -48,13 +48,23 @@ func New() Client {
 	return releases
 }
 
-// Reminder checks for new releases
-func (r *Client) Reminder() {
+// Reminder create instance of Reminder
+func (r *Client) Reminder() Reminder {
 	wg := sync.WaitGroup{}
+
+	reminder := Reminder{
+		Packages: map[string]string{},
+	}
 
 	routine := func(repo string) {
 		defer wg.Done()
-		r.Versions[repo] = r.VersionOf(repo)
+
+		prev := r.Versions[repo]
+		next := r.VersionOf(repo)
+
+		if prev != "" && prev != next {
+			reminder.AddPackage(repo, next)
+		}
 	}
 
 	for _, repo := range reposToRemind {
@@ -63,6 +73,8 @@ func (r *Client) Reminder() {
 	}
 
 	wg.Wait()
+
+	return reminder
 }
 
 // Fetch just wrapper for http.Get
