@@ -53,7 +53,8 @@ func (r *Client) Reminder() Reminder {
 	wg := sync.WaitGroup{}
 
 	reminder := Reminder{
-		Packages: map[string]string{},
+		Updated:  map[string]string{},
+		Outdated: map[string]string{},
 	}
 
 	routine := func(repo string) {
@@ -62,8 +63,8 @@ func (r *Client) Reminder() Reminder {
 		prev := r.Versions[repo]
 		next := r.VersionOf(repo)
 
-		if prev != "" && prev != next {
-			reminder.AddPackage(repo, next)
+		if prev != "" && next != "" && prev != next {
+			reminder.AddPackage(repo, prev, next)
 		}
 
 		r.Versions[repo] = next
@@ -88,8 +89,8 @@ func (r *Client) ReminderTicker(duration time.Duration, onTick func(msg string))
 		for range ticker.C {
 			reminder := r.Reminder()
 
-			if reminder.hasUpdates() {
-				log.Printf("[REMINDER] %d package released", len(reminder.Packages))
+			if reminder.HasUpdates() {
+				log.Printf("[REMINDER] %d package released", len(reminder.Updated))
 				onTick(reminder.Message())
 			}
 		}
