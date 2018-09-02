@@ -2,7 +2,9 @@ package main
 
 import (
 	"log"
+	"time"
 
+	"github.com/graphql-ru/bot/gh"
 	"github.com/graphql-ru/bot/handlers"
 	"github.com/graphql-ru/bot/telegram"
 	"github.com/joho/godotenv"
@@ -11,15 +13,20 @@ import (
 func main() {
 	godotenv.Load()
 
-	tg, err := telegram.New()
+	tgClient, err := telegram.New()
+	ghClient := gh.New()
 
 	if err != nil {
 		log.Fatal("Telegram client failed")
 	}
 
-	tg.Use(handlers.Guard)
-	tg.Use(handlers.Commands)
-	tg.Use(handlers.Join)
+	tgClient.Use(handlers.Guard)
+	tgClient.Use(handlers.Commands)
+	tgClient.Use(handlers.Join)
 
-	tg.Start()
+	ghClient.ReminderTicker(5*time.Second, func(msg string) {
+		telegram.ToAdmins(tgClient.Bot, msg)
+	})
+
+	tgClient.Start()
 }

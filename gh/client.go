@@ -65,6 +65,8 @@ func (r *Client) Reminder() Reminder {
 		if prev != "" && prev != next {
 			reminder.AddPackage(repo, next)
 		}
+
+		r.Versions[repo] = next
 	}
 
 	for _, repo := range reposToRemind {
@@ -73,8 +75,27 @@ func (r *Client) Reminder() Reminder {
 	}
 
 	wg.Wait()
+	r.Write()
 
 	return reminder
+}
+
+// ReminderTicker starts reminder tick loop
+func (r *Client) ReminderTicker(duration time.Duration, onTick func(msg string)) *time.Ticker {
+	ticker := time.NewTicker(duration)
+
+	go func() {
+		for range ticker.C {
+			reminder := r.Reminder()
+
+			if reminder.hasUpdates() {
+				log.Printf("[REMINDER] %d package released", len(reminder.Packages))
+				onTick(reminder.Message())
+			}
+		}
+	}()
+
+	return ticker
 }
 
 // Fetch just wrapper for http.Get

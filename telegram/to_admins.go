@@ -13,6 +13,8 @@ var admins = []int64{
 func ToAdmins(bot *tgbotapi.BotAPI, message string) {
 	for _, chatID := range admins {
 		msg := tgbotapi.NewMessage(chatID, message)
+		msg.DisableWebPagePreview = true
+		msg.ParseMode = "markdown"
 		bot.Send(msg)
 	}
 }
