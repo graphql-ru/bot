@@ -48,8 +48,8 @@ func New() Client {
 	return releases
 }
 
-// Remind checks for new releases
-func (r *Client) Remind() {
+// Reminder checks for new releases
+func (r *Client) Reminder() {
 	wg := sync.WaitGroup{}
 
 	routine := func(repo string) {

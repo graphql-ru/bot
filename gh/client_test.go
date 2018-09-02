@@ -10,6 +10,6 @@ import (
 func TestUpdate(t *testing.T) {
 	g := gh.New()
 
-	g.Update()
+	g.Remind()
 	fmt.Printf("%v\n", g.Versions)
 }
