@@ -15,7 +15,7 @@ import (
 var reposToRemind = []string{
 	"graphql/graphiql",
 	"graphql/graphql-js",
-	// "apollographql/apollo-client",
+	"apollographql/apollo-client",
 	"apollographql/apollo-server",
 	"apollographql/graphql-tools",
 	"apollographql/react-apollo",
@@ -156,7 +156,15 @@ func (r *Client) Read() {
 
 // Write versions into versions.json
 func (r *Client) Write() {
-	versions, err := json.Marshal(r.Versions)
+	output := map[string]string{}
+
+	for key, value := range r.Versions {
+		if value != "" {
+			output[key] = value
+		}
+	}
+
+	versions, err := json.Marshal(output)
 
 	if err != nil {
 		log.Printf("[OOPS] Can not write versions to versions.json")
