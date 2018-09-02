@@ -13,29 +13,20 @@ import (
 
 // List of github repos for release remind
 var reposToRemind = []string{
-	// Base
-	"graphql/graphiql",
-	"graphql/graphql-js",
-	"graphql/express-graphql",
-
-	// Hasura
-	"hasura/graphql-engine",
-	"hasura/graphqurl",
-
 	// Apollo
 	"apollographql/apollo-client",
 	"apollographql/apollo-server",
 	"apollographql/graphql-tools",
 	"apollographql/react-apollo",
 
+	// Hasura
+	"hasura/graphql-engine",
+	"hasura/graphqurl",
+
 	// Prisma
 	"prisma/graphql-playground",
 	"prisma/graphql-yoga",
 	"prisma/prisma",
-
-	// Other
-	"Akryum/vue-apollo",
-	"graphile/postgraphile",
 
 	// Python
 	"graphql-python/graphene",
@@ -43,6 +34,14 @@ var reposToRemind = []string{
 
 	// Ruby
 	"rmosolgo/graphql-ruby",
+
+	// Other
+	"graphile/postgraphile",
+	"graphql/graphiql",
+	"graphql/graphql-js",
+	"graphql/express-graphql",
+	"Akryum/vue-apollo",
+	"graphql-ru/bot",
 }
 
 // Client provides basic features

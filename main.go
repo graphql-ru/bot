@@ -24,7 +24,7 @@ func main() {
 	tgClient.Use(handlers.Commands)
 	tgClient.Use(handlers.Join)
 
-	ghClient.ReminderTicker(5*time.Second, func(msg string) {
+	ghClient.ReminderTicker(1*time.Hour, func(msg string) {
 		telegram.ToAdmins(tgClient.Bot, msg)
 	})
 
