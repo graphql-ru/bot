@@ -42,6 +42,7 @@ var reposToRemind = []string{
 	"graphql/express-graphql",
 	"Akryum/vue-apollo",
 	"graphql-compose/graphql-compose",
+	"APIs-guru/graphql-voyager",
 	"graphql-ru/bot",
 }
 
