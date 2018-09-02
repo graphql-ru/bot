@@ -11,8 +11,8 @@ import (
 	"time"
 )
 
-// List of github repos for release remind
-var repos = []string{
+// List of github reposToRemind for release remind
+var reposToRemind = []string{
 	"graphql/graphiql",
 	"graphql/graphql-js",
 	// "apollographql/apollo-client",
@@ -57,7 +57,7 @@ func (r *Client) Reminder() {
 		r.Versions[repo] = r.VersionOf(repo)
 	}
 
-	for _, repo := range repos {
+	for _, repo := range reposToRemind {
 		wg.Add(1)
 		go routine(repo)
 	}
