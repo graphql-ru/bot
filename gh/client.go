@@ -118,6 +118,8 @@ func (r *Client) ReminderTicker(duration time.Duration, onTick func(msg string))
 			if reminder.HasUpdates() {
 				log.Printf("[REMINDER] %d package released", len(reminder.Updated))
 				onTick(reminder.Message())
+			} else {
+				log.Println("[REMINDER] ...")
 			}
 		}
 	}()
