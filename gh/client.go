@@ -35,6 +35,12 @@ var reposToRemind = []string{
 	// Ruby
 	"rmosolgo/graphql-ruby",
 
+	// PHP
+	"railt/railt",
+	"railt/laravel-provider",
+	"railt/symfony-bundle",
+	"webonyx/graphql-php",
+
 	// Other
 	"graphile/postgraphile",
 	"graphql/graphiql",
