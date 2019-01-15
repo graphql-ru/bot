@@ -39,7 +39,7 @@ var reposToRemind = []string{
 	"railt/railt",
 	"railt/laravel-provider",
 	"railt/symfony-bundle",
-	"webonyx/graphql-php"
+	"webonyx/graphql-php",
 
 	// Other
 	"graphile/postgraphile",
